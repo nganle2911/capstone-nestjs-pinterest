@@ -33,16 +33,16 @@ CREATE TABLE images(
 );
 
 INSERT INTO images (image_name, image_path, description, user_id) VALUES
-('image1', 'path/to/image1.jpg', 'Description for image 1', 1),
-('image2', 'path/to/image2.jpg', 'Description for image 2', 2),
-('image3', 'path/to/image3.jpg', 'Description for image 3', 3),
-('image4', 'path/to/image4.jpg', 'Description for image 4', 4),
-('image5', 'path/to/image5.jpg', 'Description for image 5', 5),
-('image6', 'path/to/image6.jpg', 'Description for image 6', 6),
-('image7', 'path/to/image7.jpg', 'Description for image 7', 7),
-('image8', 'path/to/image8.jpg', 'Description for image 8', 8),
-('image9', 'path/to/image9.jpg', 'Description for image 9', 9),
-('image10', 'path/to/image10.jpg', 'Description for image 10', 10);
+('sky', 'public/img/image1.jpg', 'Blue sky', 1),
+('dog', 'public/img/image2.jpg', 'Cute dog', 2),
+('villa', 'public/img/image3.jpg', 'Beautiful villa', 5),
+('natural-landscape', 'public/img/image4.jpg', 'A beaufitul landscape with nature', 4),
+('milk-tea', 'public/img/image5.jpg', 'Bubble tea of matcha', 5),
+('web-dev-skills', 'public/img/image6.jpg', 'necessary web developer skills', 7),
+('full-stack', 'public/img/image7.jpg', 'How to become a full stack developer in 2023', 7),
+('souris-de-paris', 'public/img/image8.jpg', 'Learning French', 2),
+('strawberry-cake', 'public/img/image9.jpg', 'Vegan strawberry cake recipe', 1),
+('salad', 'public/img/image10.jpg', 'How to make a healthy salad', 1);
 
 CREATE TABLE comments(
 	comment_id INT PRIMARY KEY AUTO_INCREMENT,
