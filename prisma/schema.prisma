@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model comments {
+  comment_id   Int       @id @default(autoincrement())
+  user_id      Int?
+  image_id     Int?
+  comment_date DateTime? @db.Date
+  content      String?   @db.VarChar(250)
+  users        users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
+  images       images?   @relation(fields: [image_id], references: [image_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_2")
+
+  @@index([image_id], map: "image_id")
+  @@index([user_id], map: "user_id")
+}
+
+model images {
+  image_id    Int        @id @default(autoincrement())
+  image_name  String?    @db.VarChar(250)
+  image_path  String?    @db.VarChar(250)
+  description String?    @db.VarChar(250)
+  user_id     Int?
+  comments    comments[]
+  users       users?     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "images_ibfk_1")
+  save_img    save_img[] @ignore
+
+  @@index([user_id], map: "user_id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model save_img {
+  user_id   Int?
+  image_id  Int?
+  save_date DateTime? @db.Date
+  users     users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "save_img_ibfk_1")
+  images    images?   @relation(fields: [image_id], references: [image_id], onDelete: NoAction, onUpdate: NoAction, map: "save_img_ibfk_2")
+
+  @@index([image_id], map: "image_id")
+  @@index([user_id], map: "user_id")
+  @@ignore
+}
+
+model users {
+  user_id   Int        @id @default(autoincrement())
+  email     String?    @db.VarChar(250)
+  pass_word String?    @db.VarChar(100)
+  full_name String?    @db.VarChar(250)
+  age       Int?
+  avatar    String?    @db.VarChar(250)
+  comments  comments[]
+  images    images[]
+  save_img  save_img[] @ignore
+}
