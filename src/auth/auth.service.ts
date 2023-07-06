@@ -8,10 +8,7 @@ export class AuthService {
 
   prisma = new PrismaClient();
 
-  login(userLogin){
-
-  }
-
+  // sign-up 
   async signUp(userSignUp){
     try{
       let {email, pass_word,full_name, age} = userSignUp;
@@ -45,6 +42,38 @@ export class AuthService {
     catch{
       throw new HttpException("Error from BE",500)
     }
+  }
+
+  // login 
+  async login(userLogin) {
+    try {
+      let { email, pass_word } = userLogin;
+
+      // Check user if exists
+      let checkUser = await this.prisma.users.findFirst({
+        where: {
+          email
+        }
+      })
+
+      // if email existed => check pass_word 
+      if (checkUser) {
+        if (bcrypt.compareSync(pass_word, checkUser.pass_word)) {
+          checkUser = { ...checkUser, pass_word: "" }
+
+          // successfully login
+          return "login successfully";
+        } else {
+          // pass_word is incorrect 
+          throw new HttpException("Password is incorrect!", 400);
+        }
+      } else {
+        throw new HttpException("Email or password is incorrect!", 400);
+      }
+    } catch {
+      throw new HttpException("Error from BE!", 500);
+    }
+
   }
   
 }
