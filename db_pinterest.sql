@@ -5,13 +5,13 @@ USE db_pinterest;
 CREATE TABLE users(
 	user_id INT PRIMARY KEY AUTO_INCREMENT,
 	email VARCHAR(250),
-	password VARCHAR(100),
+	pass_word VARCHAR(100),
 	full_name VARCHAR(250),
 	age INT,
 	avatar VARCHAR(250)
 );
 
-INSERT INTO users (email, password, full_name, age, avatar) VALUES
+INSERT INTO users (email, pass_word, full_name, age, avatar) VALUES
 ('sophia@example.com', '1234', 'Sophia', 25, 'sophia.jpg'),
 ('william@example.com', '6789', 'William', 30, 'william.jpg'),
 ('james@example.com', '141002', 'James', 28, 'james.jpg'),
