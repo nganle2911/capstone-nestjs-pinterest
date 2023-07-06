@@ -22,18 +22,22 @@ export class AuthService {
           email,
         },
       })
+
+      // if email is already existed
       if(checkEmail){
         throw new HttpException("Email is already existed",400);
       }
+      // if not, create the new user 
       else{
 
         let newUser = {
           email,
-          pass_word: bcrypt.hashSync(pass_word,10),
+          pass_word: bcrypt.hashSync(pass_word,10), //encode the password
           full_name,
           age
         }
 
+        // create new user
         await this.prisma.users.create({
           data:newUser
         })
@@ -42,6 +46,7 @@ export class AuthService {
       }
 
     }
+    
     catch{
       throw new HttpException("Error from BE",500)
     }
