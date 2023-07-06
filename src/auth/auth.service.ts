@@ -3,9 +3,15 @@ import * as bcrypt from 'bcrypt'
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { PrismaClient } from '@prisma/client';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AuthService {
 
+  constructor(
+    private jwtService: JwtService,
+    private configService: ConfigService
+  ) {}
   prisma = new PrismaClient();
 
   // sign-up 
@@ -61,8 +67,9 @@ export class AuthService {
         if (bcrypt.compareSync(pass_word, checkUser.pass_word)) {
           checkUser = { ...checkUser, pass_word: "" }
 
-          // successfully login
-          return "login successfully";
+          // successfully login => return token 
+          let token = this.jwtService.signAsync({data: "data"}, {secret: this.configService.get("KEY"), expiresIn: "5m"});
+          return token; 
         } else {
           // pass_word is incorrect 
           throw new HttpException("Password is incorrect!", 400);
@@ -73,7 +80,6 @@ export class AuthService {
     } catch {
       throw new HttpException("Error from BE!", 500);
     }
-
   }
   
 }
