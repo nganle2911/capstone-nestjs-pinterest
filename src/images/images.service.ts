@@ -30,5 +30,29 @@ export class ImagesService {
     }
     
   }
-  
+
+  async getInfoByImageId(imgId:number){
+    try{
+      let info = await this.prisma.images.findFirst({
+        include:{
+          users:true
+        },
+        where:{
+          image_id:imgId
+        }
+      })
+      if(info){
+        return info;
+      }
+      else {
+        throw new HttpException("image_id not found!", 404); 
+      }
+    }
+    catch(error){
+      console.log(error);
+      throw new HttpException(error.response, error.status); 
+    }
+    
+  }
+
 }

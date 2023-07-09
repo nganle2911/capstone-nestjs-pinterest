@@ -19,4 +19,10 @@ export class ImagesController {
     return this.imagesService.getImageByName(image_name);
   }
 
+  // Get image and user by image id
+  @Get("get-info-by-img-id/:image_id")
+  getInfoByImageId(@Param("image_id") image_id:number){
+    return this.imagesService.getInfoByImageId(Number(image_id));
+  }
+
 }
