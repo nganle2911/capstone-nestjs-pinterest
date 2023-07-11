@@ -13,4 +13,9 @@ export class CommentsController {
     return this.commentsService.getCommentsByImgId(+image_id)
   }
   
+  // Save user's comments 
+  @Post("save-comment")
+  saveComment(@Body() body) {
+    return this.commentsService.saveComment(body); 
+  }
 }

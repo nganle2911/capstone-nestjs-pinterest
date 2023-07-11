@@ -67,6 +67,7 @@ INSERT INTO comments (user_id, image_id, comment_date, content) VALUES
 (10, 9, '2023-07-02', 'Comment 1 for image 9');
 
 CREATE TABLE save_img(
+	save_id INT PRIMARY KEY AUTO_INCREMENT,
 	user_id INT,
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	image_id INT,

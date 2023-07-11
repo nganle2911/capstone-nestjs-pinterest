@@ -26,4 +26,18 @@ export class CommentsService {
       throw new HttpException(error.response, error.status);
     }
   }
+
+  async saveComment(userComment) {
+    let {comment_id, user_id, image_id, comment_date, content} = userComment; 
+
+    let newComment = {
+      user_id,
+      image_id,
+      comment_date: new Date(),
+      content
+    }
+
+    await this.prisma.comments.create({data: newComment}); 
+    return "Save successfully!"; 
+  }
 }
