@@ -28,13 +28,13 @@ model images {
   user_id     Int?
   comments    comments[]
   users       users?     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "images_ibfk_1")
-  save_img    save_img[] @ignore
+  save_img    save_img[]
 
   @@index([user_id], map: "user_id")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model save_img {
+  save_id   Int       @id @default(autoincrement())
   user_id   Int?
   image_id  Int?
   save_date DateTime? @db.Date
@@ -43,7 +43,6 @@ model save_img {
 
   @@index([image_id], map: "image_id")
   @@index([user_id], map: "user_id")
-  @@ignore
 }
 
 model users {
@@ -55,5 +54,5 @@ model users {
   avatar    String?    @db.VarChar(250)
   comments  comments[]
   images    images[]
-  save_img  save_img[] @ignore
+  save_img  save_img[]
 }

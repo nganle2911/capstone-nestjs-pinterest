@@ -25,4 +25,6 @@ export class ImagesController {
     return this.imagesService.getInfoByImageId(Number(image_id));
   }
 
+  
+
 }
