@@ -7,10 +7,11 @@ import { ImagesModule } from './images/images.module';
 import { CommentsModule } from './comments/comments.module';
 import { SaveImgModule } from './save_img/save_img.module';
 import { UsersModule } from './users/users.module';
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 @Module({
   imports: [AuthModule, ConfigModule.forRoot({isGlobal: true}), ImagesModule, CommentsModule, SaveImgModule, UsersModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtStrategy],
 })
 export class AppModule {}
