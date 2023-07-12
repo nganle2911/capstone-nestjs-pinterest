@@ -61,6 +61,7 @@ export class AuthService {
           email
         }
       })
+      
 
       // if email existed => check pass_word 
       if (checkUser) {
@@ -68,8 +69,7 @@ export class AuthService {
           checkUser = { ...checkUser, pass_word: "" }
 
           // successfully login => return token 
-          let token = this.jwtService.signAsync({data: userLogin}, {secret: this.configService.get("KEY"), expiresIn: "5m"});
-          
+          let token = this.jwtService.signAsync({user_id:Number(checkUser.user_id) }, {secret: this.configService.get("KEY"), expiresIn: "5m"});
           return token; 
         } else {
           // pass_word is incorrect 
@@ -81,6 +81,8 @@ export class AuthService {
     } catch {
       throw new HttpException("Error from BE!", 500);
     }
+
+
   }
 
   

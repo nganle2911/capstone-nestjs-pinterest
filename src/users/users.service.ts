@@ -7,14 +7,7 @@ import { PrismaClient } from '@prisma/client';
 export class UsersService {
   prisma = new PrismaClient();
 
-  async getUser(user_id:number){
-   let checkUser = await this.prisma.users.findUnique({
-    where:{
-      user_id
-    }
-   })
-   return checkUser;
-  }
+
 
   
 
