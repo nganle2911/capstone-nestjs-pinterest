@@ -21,4 +21,21 @@ export class SaveImgService {
         return "Save"
       }
   }
+
+  async getImageList(user_id: number) {
+    let checkUser = await this.prisma.save_img.findMany({
+      where: {
+        user_id
+      },
+      include: {
+        images: true
+      }
+    }); 
+
+    if (checkUser) {
+      return checkUser; 
+    } else {
+      throw new HttpException("user not found", 404); 
+    }
+  }
 }
