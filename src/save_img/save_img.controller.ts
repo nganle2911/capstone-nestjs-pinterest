@@ -12,4 +12,10 @@ export class SaveImgController {
   checkImage(@Param("image_id") image_id:number){
     return this.saveImgService.checkImage(Number(image_id));
   }
+
+  // Get saved image list by user_id 
+  @Get("get-image-list/:user_id")
+  getImageList(@Param("user_id") user_id: number) {
+    return this.saveImgService.getImageList(+user_id); 
+  }
 }
