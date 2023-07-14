@@ -24,9 +24,9 @@ export class ImagesService {
     } else {
       throw new HttpException("image_name not found!", 404); 
     }
-    } catch (error) {
-      console.log(error);
-      throw new HttpException(error.response, error.status); 
+    } catch (err) {
+      console.log(err);
+      throw new HttpException(err.response, err.status!=500?err.status:500); 
     }
     
   }
@@ -45,12 +45,13 @@ export class ImagesService {
         return info;
       }
       else {
-        throw new HttpException("image_id not found!", 404); 
+        throw new HttpException("image_id not found!", 400); 
       }
+      
     }
-    catch(error){
-      console.log(error);
-      throw new HttpException(error.response, error.status); 
+    catch(err){
+      console.log(err);
+      throw new HttpException(err.response, err.status!=500?err.status:500); 
     }
     
   }

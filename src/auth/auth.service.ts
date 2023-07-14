@@ -45,8 +45,8 @@ export class AuthService {
       }
 
     }
-    catch{
-      throw new HttpException("Error from BE",500)
+    catch(err){
+      throw new HttpException(err.response, err.status!=500?err.status:500)
     }
   }
 
@@ -69,7 +69,7 @@ export class AuthService {
           checkUser = { ...checkUser, pass_word: "" }
 
           // successfully login => return token 
-          let token = this.jwtService.signAsync({user_id:Number(checkUser.user_id) }, {secret: this.configService.get("KEY"), expiresIn: "5m"});
+          let token = this.jwtService.signAsync({user_id:Number(checkUser.user_id)}, {secret: this.configService.get("KEY"), expiresIn: "60m"});
           return token; 
         } else {
           // pass_word is incorrect 
@@ -78,8 +78,8 @@ export class AuthService {
       } else {
         throw new HttpException("Email or password is incorrect!", 400);
       }
-    } catch {
-      throw new HttpException("Error from BE!", 500);
+    } catch(err) {
+      throw new HttpException(err.response, err.status!=500?err.status:500);
     }
 
 
