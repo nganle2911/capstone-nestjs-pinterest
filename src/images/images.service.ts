@@ -106,6 +106,34 @@ export class ImagesService {
     // }
   }
 
+  async uploadImage(file:Express.Multer.File, userId:number){
+    // try{
+      console.log(userId)
+      let getUserById = await this.prisma.images.findFirst({
+        where:{
+          user_id:userId
+        }
+      })
+
+      if(getUserById){
+
+        getUserById.image_name=file.filename
+
+        await this.prisma.images.update({
+          data:getUserById,
+          where:{
+            image_id:userId
+          }
+        })
+        return "Upload image successfully"
+      }
+      return "User not found!"
+    // }
+    // catch(err){
+    //   throw new HttpException(err.response, err.status!=500?err.status:500); 
+    // }
+  }
+
   
 
 }

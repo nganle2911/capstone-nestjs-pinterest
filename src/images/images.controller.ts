@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Headers } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Headers, UseInterceptors,UploadedFile} from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { JwtService } from '@nestjs/jwt';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService,
@@ -37,6 +38,19 @@ export class ImagesController {
   @Delete("remove-image/:image_id")
   removeCreatedImage(@Param("image_id") image_id: number) {
     return this.imagesService.removeCreatedImage(+image_id); 
+  }
+
+  @UseInterceptors(FileInterceptor("file",{
+    storage:diskStorage({
+      destination:  process.cwd()+"/public/img",
+      filename:(req,file,callback)=>{
+        callback(null, new Date().getTime() + file.originalname)
+      }
+    })
+  }))
+  @Post("upload-image/:user_id")
+  uploadImage(@UploadedFile() file:Express.Multer.File, @Param("userId") userId:number){
+    return this.imagesService.uploadImage(file, Number(userId))
   }
 
 }
