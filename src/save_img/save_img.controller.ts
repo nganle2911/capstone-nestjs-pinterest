@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Headers } from '@nestjs/common';
 import { SaveImgService } from './save_img.service';
 import { CreateSaveImgDto } from './dto/create-save_img.dto';
 import { UpdateSaveImgDto } from './dto/update-save_img.dto';
@@ -14,8 +14,8 @@ export class SaveImgController {
   }
 
   // Get saved image list by user_id 
-  @Get("get-image-list/:user_id")
-  getImageList(@Param("user_id") user_id: number) {
-    return this.saveImgService.getImageList(+user_id); 
+  @Get("get-image-list")
+  getImageList(@Headers("token") token) {
+    return this.saveImgService.getImageList(token); 
   }
 }

@@ -1,3 +1,4 @@
+import { JwtService } from '@nestjs/jwt';
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateSaveImgDto } from './dto/create-save_img.dto';
 import { UpdateSaveImgDto } from './dto/update-save_img.dto';
@@ -6,6 +7,8 @@ import { PrismaClient } from '@prisma/client';
 @Injectable()
 export class SaveImgService {
   prisma = new PrismaClient();
+
+  constructor(private jwtService: JwtService) {}
 
   async checkImage(image_id:number){
   
@@ -22,11 +25,14 @@ export class SaveImgService {
       }
   }
 
-  async getImageList(user_id: number) {
+  async getImageList(token) {
     try{
+      let decodedToken = await this.jwtService.decode(token);
+      let userId = decodedToken["user_id"]; 
+
       let checkUser = await this.prisma.save_img.findMany({
         where: {
-          user_id
+          user_id: userId
         },
         include: {
           images: true

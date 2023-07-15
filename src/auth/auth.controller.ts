@@ -16,6 +16,5 @@ export class AuthController {
   @Post("/sign-up")
   signUp(@Body() body){
     return this.authService.signUp(body);
-  }
-  
+  } 
 }
