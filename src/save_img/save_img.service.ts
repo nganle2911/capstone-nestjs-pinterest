@@ -40,7 +40,12 @@ export class SaveImgService {
       }); 
   
       if (checkUser) {
-        return checkUser; 
+        if (checkUser.length === 0) {
+          return "This user hasn't saved any images!"; 
+        } else {
+          return checkUser;
+        }
+
       } else {
         throw new HttpException("user not found", 404); 
       }
