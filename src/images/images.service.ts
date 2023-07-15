@@ -2,9 +2,12 @@ import { HttpException, Injectable, Param } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { PrismaClient } from '@prisma/client';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class ImagesService {
   prisma = new PrismaClient();
+
+  constructor(private jwtService:JwtService) {}
 
   async getImageList(){
     return await this.prisma.images.findMany()
@@ -54,6 +57,32 @@ export class ImagesService {
       throw new HttpException(err.response, err.status!=500?err.status:500); 
     }
     
+  }
+
+  async getCreatedImageList(token){
+    try{
+      let decodedToken = await this.jwtService.decode(token);
+      let userId = decodedToken['user_id']
+      
+      let checkUser = await this.prisma.images.findMany({
+        where:{
+          user_id:userId
+        }
+      })
+  
+      if(checkUser){
+        if(checkUser.length===0){
+          return "This user hasn't created any image yet!"
+        }else{
+          return checkUser;
+        }
+      }
+    }
+    catch(err){
+      throw new HttpException(err.response, err.status!=500?err.status:500); 
+    }
+   
+
   }
 
   

@@ -41,7 +41,7 @@ export class SaveImgService {
   
       if (checkUser) {
         if (checkUser.length === 0) {
-          return "This user hasn't saved any images!"; 
+          return "This user hasn't saved any images yet!"; 
         } else {
           return checkUser;
         }

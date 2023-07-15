@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Headers } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('images')
 export class ImagesController {
-  constructor(private readonly imagesService: ImagesService) {}
+  constructor(private readonly imagesService: ImagesService,
+    ) {}
 
   // Get image list 
   @Get('get-image-list')
@@ -23,6 +25,12 @@ export class ImagesController {
   @Get("get-info-by-img-id/:image_id")
   getInfoByImageId(@Param("image_id") image_id:number){
     return this.imagesService.getInfoByImageId(Number(image_id));
+  }
+
+  // Get created image list
+  @Get("get-created-image-list")
+  getCreatedImageList(@Headers("token") token){
+    return this.imagesService.getCreatedImageList(token)
   }
 
   
