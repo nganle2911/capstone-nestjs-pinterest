@@ -1,3 +1,4 @@
+import { Image } from './entities/image.entity';
 import { HttpException, Injectable, Param } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
@@ -81,8 +82,28 @@ export class ImagesService {
     catch(err){
       throw new HttpException(err.response, err.status!=500?err.status:500); 
     }
-   
+  }
 
+  async removeCreatedImage(image_id: number) {
+    // try {
+      // let decodedToken = await this.jwtService.decode(token);
+      // let userId = decodedToken['user_id']; 
+
+      let imageId = await this.prisma.images.deleteMany({
+        where: {
+          image_id
+        }
+      }); 
+
+      if (imageId) {
+        console.log(imageId)
+        return "Image deleted successfully!";
+      } else {
+        throw new HttpException("image not found", 404); 
+      }
+    // } catch (err) {
+    //   throw new HttpException(err.response, err.status != 500 ? err.status : 500); 
+    // }
   }
 
   

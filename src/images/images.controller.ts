@@ -33,6 +33,10 @@ export class ImagesController {
     return this.imagesService.getCreatedImageList(token)
   }
 
-  
+  // Delete created image by image_id 
+  @Delete("remove-image/:image_id")
+  removeCreatedImage(@Param("image_id") image_id: number) {
+    return this.imagesService.removeCreatedImage(+image_id); 
+  }
 
 }
