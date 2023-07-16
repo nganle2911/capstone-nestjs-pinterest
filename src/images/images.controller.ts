@@ -49,7 +49,7 @@ export class ImagesController {
     })
   }))
   @Post("upload-image")
-  uploadImage(@UploadedFile() file:Express.Multer.File, @Body("description") description, @Headers("token") token){
+  uploadImage(@UploadedFile() file: Express.Multer.File, @Body("description") description, @Headers("token") token){
     return this.imagesService.uploadImage(file,description,token)
   } 
 
