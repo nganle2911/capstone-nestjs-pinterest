@@ -32,15 +32,17 @@ export class UsersService {
     }     
   }
 
-  async updateUser(token, email, full_name, file: Express.Multer.File) {
+  async updateUser(token, email, pass_word, full_name, age, file: Express.Multer.File) {
     // try {
       let decodedToken = await this.jwtService.decode(token)
       let userId = decodedToken['user_id'];
 
     
       let newData = {
-          email, 
+          email,
+          pass_word,
           full_name,
+          age,
           avatar : file.filename
       }
       console.log(newData); 
@@ -49,8 +51,10 @@ export class UsersService {
           user_id: userId
         },
         data: {
-          email,  
+          email, 
+          pass_word, 
           full_name,
+          age,
           avatar : file.filename
         }
       });

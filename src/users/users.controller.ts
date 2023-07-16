@@ -27,7 +27,14 @@ export class UsersController {
     })
   }))
   @Put("update-user")
-  updateUser(@Headers("token") token, @Body("email") email, @Body("full_name") full_name, @UploadedFile() file: Express.Multer.File) {
-    return this.usersService.updateUser(token, email, full_name, file); 
+  updateUser(
+    @Headers("token") token, 
+    @Body("email") email, 
+    @Body("pass_word") pass_word,
+    @Body("full_name") full_name, 
+    @Body("age") age,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    return this.usersService.updateUser(token, email, pass_word, full_name, +age, file); 
   }
 }
