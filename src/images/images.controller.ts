@@ -40,17 +40,17 @@ export class ImagesController {
     return this.imagesService.removeCreatedImage(+image_id, token); 
   }
 
-  /* @UseInterceptors(FileInterceptor("file",{
+  @UseInterceptors(FileInterceptor("file",{
     storage:diskStorage({
       destination:  process.cwd()+"/public/img",
       filename:(req,file,callback)=>{
         callback(null, new Date().getTime() + file.originalname)
       }
     })
-  })) */
-  /* @Post("upload-image/:user_id")
-  uploadImage(@UploadedFile() file:Express.Multer.File, @Param("userId") userId:number){
-    return this.imagesService.uploadImage(file, Number(userId))
-  } */
+  }))
+  @Post("upload-image")
+  uploadImage(@UploadedFile() file:Express.Multer.File, @Body("description") description, @Headers("token") token){
+    return this.imagesService.uploadImage(file,description,token)
+  } 
 
 }

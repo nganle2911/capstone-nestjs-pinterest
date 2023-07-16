@@ -1,5 +1,5 @@
 import { Image } from './entities/image.entity';
-import { HttpException, Injectable, Param } from '@nestjs/common';
+import { HttpException, Injectable, Param,Body, Headers } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { PrismaClient } from '@prisma/client';
@@ -107,33 +107,26 @@ export class ImagesService {
     }
   }
 
-  /* async uploadImage(file:Express.Multer.File, userId:number){
-    // try{
-      console.log(userId)
-      let getUserById = await this.prisma.images.findFirst({
-        where:{
+  async uploadImage(file:Express.Multer.File, description,token){
+    try{
+
+      let decodedToken = await this.jwtService.decode(token);
+      let userId = decodedToken['user_id']; 
+
+      await this.prisma.images.create({
+        data: {
+          image_name:file.filename,
+          image_path:file.path,
+          description,
           user_id:userId
         }
       })
 
-      if(getUserById){
-
-        getUserById.image_name=file.filename
-
-        await this.prisma.images.update({
-          data:getUserById,
-          where:{
-            image_id:userId
-          }
-        })
-        return "Upload image successfully"
-      }
-      return "User not found!"
-    // }
-    // catch(err){
-    //   throw new HttpException(err.response, err.status!=500?err.status:500); 
-    // }
-  } */
+  }
+    catch(err){
+      throw new HttpException(err.response, err.status!=500?err.status:500); 
+    }
+  }
 
   
 
