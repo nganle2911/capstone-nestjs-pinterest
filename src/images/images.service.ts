@@ -84,29 +84,34 @@ export class ImagesService {
     }
   }
 
-  async removeCreatedImage(image_id: number) {
-    // try {
-      // let decodedToken = await this.jwtService.decode(token);
-      // let userId = decodedToken['user_id']; 
+  async removeCreatedImage(image_id: number, token) {
+    try {
+      let decodedToken = await this.jwtService.decode(token);
+      let userId = decodedToken['user_id']; 
 
       let imageId = await this.prisma.images.deleteMany({
         where: {
-          image_id
+          image_id,
+          user_id: userId
         }
       }); 
 
       if (imageId) {
         console.log(imageId)
-        return "Image deleted successfully!";
+        if (imageId.count === 0) {
+          return "You haven't created any image yet!";
+        } else {
+          return "Image deleted successfully!";
+        }
       } else {
         throw new HttpException("image not found", 404); 
       }
-    // } catch (err) {
-    //   throw new HttpException(err.response, err.status != 500 ? err.status : 500); 
-    // }
+    } catch (err) {
+      throw new HttpException(err.response, err.status != 500 ? err.status : 500); 
+    }
   }
 
-  async uploadImage(file:Express.Multer.File, userId:number){
+  /* async uploadImage(file:Express.Multer.File, userId:number){
     // try{
       console.log(userId)
       let getUserById = await this.prisma.images.findFirst({
@@ -132,7 +137,7 @@ export class ImagesService {
     // catch(err){
     //   throw new HttpException(err.response, err.status!=500?err.status:500); 
     // }
-  }
+  } */
 
   
 

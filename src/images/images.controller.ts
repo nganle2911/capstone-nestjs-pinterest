@@ -36,21 +36,21 @@ export class ImagesController {
 
   // Delete created image by image_id 
   @Delete("remove-image/:image_id")
-  removeCreatedImage(@Param("image_id") image_id: number) {
-    return this.imagesService.removeCreatedImage(+image_id); 
+  removeCreatedImage(@Param("image_id") image_id: number, @Headers("token") token) {
+    return this.imagesService.removeCreatedImage(+image_id, token); 
   }
 
-  @UseInterceptors(FileInterceptor("file",{
+  /* @UseInterceptors(FileInterceptor("file",{
     storage:diskStorage({
       destination:  process.cwd()+"/public/img",
       filename:(req,file,callback)=>{
         callback(null, new Date().getTime() + file.originalname)
       }
     })
-  }))
-  @Post("upload-image/:user_id")
+  })) */
+  /* @Post("upload-image/:user_id")
   uploadImage(@UploadedFile() file:Express.Multer.File, @Param("userId") userId:number){
     return this.imagesService.uploadImage(file, Number(userId))
-  }
+  } */
 
 }
