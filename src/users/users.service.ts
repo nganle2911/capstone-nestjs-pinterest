@@ -29,15 +29,34 @@ export class UsersService {
     }
     catch(err){
       throw new HttpException(err.response, err.status!=500?err.status:500); 
-    }
-     
-       
-    
-    
-    
-     
+    }     
   }
 
-  
+  async updateUser(token, email, full_name, file: Express.Multer.File) {
+    // try {
+      let decodedToken = await this.jwtService.decode(token)
+      let userId = decodedToken['user_id'];
 
+    
+      let newData = {
+          email, 
+          full_name,
+          avatar : file.filename
+      }
+      console.log(newData); 
+      await this.prisma.users.update({
+        where: {
+          user_id: userId
+        },
+        data: {
+          email,  
+          full_name,
+          avatar : file.filename
+        }
+      });
+      
+    // } catch (err) {
+    //   throw new HttpException(err.response, err.status!=500?err.status:500); 
+    // }
+  }
 }
