@@ -96,13 +96,9 @@ export class ImagesService {
         }
       }); 
 
-      if (imageId) {
+      if (imageId.count !== 0) {
         console.log(imageId)
-        if (imageId.count === 0) {
-          return "You haven't created any image yet!";
-        } else {
-          return "Image deleted successfully!";
-        }
+        return "Image deleted successfully!";
       } else {
         throw new HttpException("image not found", 404); 
       }
