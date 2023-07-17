@@ -19,25 +19,30 @@ export class CommentsService {
         console.log("comment");
         return comment;
       } else {
-        throw new HttpException("image_id not found!", 400);
+        throw new HttpException({mess:"image_id not found!"}, 400);
       }
     } catch (err) {
-      console.log(err);
-      throw new HttpException(err.response, err.status!=500?err.status:500);
+      throw new HttpException(err.response.mess, err.status);
     }
   }
 
   async saveComment(userComment) {
-    let { user_id, image_id, comment_date, content} = userComment; 
+    try{
+      let { user_id, image_id, content} = userComment; 
 
-    let newComment = {
-      user_id,
-      image_id,
-      comment_date: new Date(),
-      content
+      let newComment = {
+        user_id,
+        image_id,
+        comment_date: new Date(),
+        content
+      }
+  
+      await this.prisma.comments.create({data: newComment}); 
+      return "Save successfully!"; 
     }
-
-    await this.prisma.comments.create({data: newComment}); 
-    return "Save successfully!"; 
+    catch(err){
+      throw new HttpException(err.response.mess, err.status);
+    }
+   
   }
 }

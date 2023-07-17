@@ -24,16 +24,16 @@ export class UsersService {
         return {...checkUser,token};
        }
        else{
-        throw new HttpException("user_id not found!", 400); 
+        throw new HttpException({mess:"user_id not found!"}, 400); 
        }
     }
     catch(err){
-      throw new HttpException(err.response, err.status!=500?err.status:500); 
+      throw new HttpException(err.response.mess, err.status);
     }     
   }
 
   async updateUser(token, email, pass_word, full_name, age, file: Express.Multer.File) {
-    // try {
+    try {
       let decodedToken = await this.jwtService.decode(token)
       let userId = decodedToken['user_id'];
 
@@ -45,7 +45,7 @@ export class UsersService {
           age,
           avatar : file.filename
       }
-      console.log(newData); 
+
       await this.prisma.users.update({
         where: {
           user_id: userId
@@ -59,8 +59,8 @@ export class UsersService {
         }
       });
       
-    // } catch (err) {
-    //   throw new HttpException(err.response, err.status!=500?err.status:500); 
-    // }
+    } catch (err) {
+      throw new HttpException(err.response.mess, err.status);
+    }
   }
 }

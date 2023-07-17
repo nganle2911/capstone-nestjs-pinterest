@@ -11,18 +11,23 @@ export class SaveImgService {
   constructor(private jwtService: JwtService) {}
 
   async checkImage(image_id:number){
-  
-      let checkImg = await this.prisma.save_img.findFirst({
-        where:{
-          image_id
+      try{
+        let checkImg = await this.prisma.save_img.findFirst({
+          where:{
+            image_id
+          }
+        })
+        if(checkImg){
+          return "Saved"
         }
-      })
-      if(checkImg){
-        return "Saved"
+        else{
+          return "Save"
+        }
       }
-      else{
-        return "Save"
+      catch(err){
+        throw new HttpException(err.response.mess, err.status); 
       }
+      
   }
 
   async getImageList(token) {
@@ -47,11 +52,11 @@ export class SaveImgService {
         }
 
       } else {
-        throw new HttpException("user not found", 404); 
+        throw new HttpException({mess:"user not found"}, 404); 
       }
     }
     catch(err){
-      throw new HttpException(err.response, err.status!=500?err.status:500); 
+      throw new HttpException(err.response.mess, err.status); 
     }
     }
     

@@ -32,14 +32,11 @@ export class ImagesService {
       if (imageByName) {
         return imageByName;
       } else {
-        throw new HttpException('image_name not found!', 404);
+        throw new HttpException({mess:'image_name not found!'}, 404);
       }
     } catch (err) {
       console.log(err);
-      throw new HttpException(
-        err.response,
-        err.status != 500 ? err.status : 500,
-      );
+      throw new HttpException(err.response.mess, err.status);
     }
   }
 
@@ -58,14 +55,11 @@ export class ImagesService {
         const updatedInfo = { ...imageInfo, users: userInfo };
         return updatedInfo;
       } else {
-        throw new HttpException('image_id not found!', 400);
+        throw new HttpException({mess:'image_id not found!'}, 400);
       }
     } catch (err) {
       console.log(err);
-      throw new HttpException(
-        err.response,
-        err.status != 500 ? err.status : 500,
-      );
+      throw new HttpException(err.response.mess, err.status);
     }
   }
 
@@ -88,10 +82,7 @@ export class ImagesService {
         }
       }
     } catch (err) {
-      throw new HttpException(
-        err.response,
-        err.status != 500 ? err.status : 500,
-      );
+      throw new HttpException(err.response.mess, err.status);
     }
   }
 
@@ -111,13 +102,10 @@ export class ImagesService {
         console.log(imageId);
         return 'Image deleted successfully!';
       } else {
-        throw new HttpException('image not found', 404);
+        throw new HttpException({mess:'image not found'}, 404);
       }
     } catch (err) {
-      throw new HttpException(
-        err.response,
-        err.status != 500 ? err.status : 500,
-      );
+      throw new HttpException(err.response.mess, err.status);
     }
   }
 
@@ -134,10 +122,12 @@ export class ImagesService {
           user_id:userId
         }
       })
+
+      return "Create image successfully"
       
   }
     catch(err){
-      throw new HttpException(err.response, err.status!=500?err.status:500); 
+      throw new HttpException(err.response.mess, err.status); 
     }
   }
 }

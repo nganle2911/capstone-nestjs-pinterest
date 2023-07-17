@@ -26,7 +26,7 @@ export class AuthService {
         },
       })
       if(checkEmail){
-        throw new HttpException("Email is already existed",400);
+        throw new HttpException({mess:"Email is already existed"},400);
       }
       else{
 
@@ -46,7 +46,7 @@ export class AuthService {
 
     }
     catch(err){
-      throw new HttpException(err.response, err.status!=500?err.status:500)
+      throw new HttpException(err.response.mess, err.status);
     }
   }
 
@@ -73,13 +73,13 @@ export class AuthService {
           return token; 
         } else {
           // pass_word is incorrect 
-          throw new HttpException("Password is incorrect!", 400);
+          throw new HttpException({mess:"Password is incorrect!"}, 400);
         }
       } else {
-        throw new HttpException("Email or password is incorrect!", 400);
+        throw new HttpException({mess:"Email or password is incorrect!"}, 400);
       }
     } catch(err) {
-      throw new HttpException(err.response, err.status!=500?err.status:500);
+      throw new HttpException(err.response.mess, err.status);
     }
 
 
