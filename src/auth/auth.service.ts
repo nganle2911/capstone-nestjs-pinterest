@@ -67,7 +67,7 @@ export class AuthService {
       if (checkUser) {
         if (bcrypt.compareSync(pass_word, checkUser.pass_word)) {
           checkUser = { ...checkUser, pass_word: "" }
-
+          console.log(checkUser)
           // successfully login => return token 
           let token = this.jwtService.signAsync({user_id:Number(checkUser.user_id)}, {secret: this.configService.get("KEY"), expiresIn: "60m"});
           return token; 
