@@ -21,7 +21,7 @@ export class UsersService {
         }
        })
        if(checkUser){
-        return checkUser;
+        return {...checkUser,token};
        }
        else{
         throw new HttpException("user_id not found!", 400); 
