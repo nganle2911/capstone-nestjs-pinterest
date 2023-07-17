@@ -28,7 +28,7 @@ export class CommentsService {
   }
 
   async saveComment(userComment) {
-    let {comment_id, user_id, image_id, comment_date, content} = userComment; 
+    let { user_id, image_id, comment_date, content} = userComment; 
 
     let newComment = {
       user_id,
