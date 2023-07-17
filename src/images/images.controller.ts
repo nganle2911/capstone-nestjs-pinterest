@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Headers, UseInterceptors,UploadedFile} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Headers, UseInterceptors,UploadedFile, UseGuards} from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { JwtService } from '@nestjs/jwt';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { AuthGuard } from '@nestjs/passport';
+@UseGuards(AuthGuard("jwt"))
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService,

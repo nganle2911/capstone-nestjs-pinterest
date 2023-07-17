@@ -1,4 +1,4 @@
-import { Body, Controller, Get,Headers, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get,Headers, Put, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,6 +6,7 @@ import { AuthGuard } from '@nestjs/passport/dist';
 import { PrismaClient } from '@prisma/client';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+@UseGuards(AuthGuard("jwt"))
 @Controller('users')
 export class UsersController {
   prisma = new PrismaClient();

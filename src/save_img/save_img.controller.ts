@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Headers } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Headers, UseGuards } from '@nestjs/common';
 import { SaveImgService } from './save_img.service';
 import { CreateSaveImgDto } from './dto/create-save_img.dto';
 import { UpdateSaveImgDto } from './dto/update-save_img.dto';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard("jwt"))
 @Controller('save-img')
 export class SaveImgController {
   constructor(private readonly saveImgService: SaveImgService) {}
