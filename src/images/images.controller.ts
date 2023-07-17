@@ -40,6 +40,7 @@ export class ImagesController {
     return this.imagesService.removeCreatedImage(+image_id, token); 
   }
 
+  // Upload image 
   @UseInterceptors(FileInterceptor("file",{
     storage:diskStorage({
       destination:  process.cwd()+"/public/img",
