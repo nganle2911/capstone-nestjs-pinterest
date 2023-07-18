@@ -62,7 +62,6 @@ export class AuthService {
       if (checkUser) {
         if (bcrypt.compareSync(pass_word, checkUser.pass_word)) {
           checkUser = { ...checkUser, pass_word: '' };
-          console.log(checkUser);
           // successfully login => return token
           let token = this.jwtService.signAsync(
             { user_id: Number(checkUser.user_id) },
@@ -75,7 +74,7 @@ export class AuthService {
         }
       } else {
         throw new HttpException(
-          { mess: 'Email or password is incorrect!' },
+          'Email or password is incorrect!' ,
           400,
         );
       }

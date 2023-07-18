@@ -35,7 +35,6 @@ export class ImagesService {
         throw new HttpException('image_name not found!', 404);
       }
     } catch (err) {
-      console.log(err);
       throw new HttpException(err.response, err.status);
     }
   }
@@ -58,7 +57,7 @@ export class ImagesService {
         throw new HttpException('image_id not found!', 400);
       }
     } catch (err) {
-      console.log(err);
+
       throw new HttpException(err.response, err.status);
     }
   }
@@ -99,7 +98,6 @@ export class ImagesService {
       });
 
       if (imageId.count !== 0) {
-        console.log(imageId);
         return 'Image deleted successfully!';
       } else {
         throw new HttpException('image not found', 404);

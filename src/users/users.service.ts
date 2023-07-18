@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaClient } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   prisma = new PrismaClient();
@@ -21,7 +21,9 @@ export class UsersService {
         }
        })
        if(checkUser){
-        return {...checkUser,token};
+        const {pass_word, ...restInfo} = checkUser
+        const userInfo = restInfo
+        return {...userInfo,token};
        }
        else{
         throw new HttpException("user_id not found!", 400); 
@@ -40,7 +42,7 @@ export class UsersService {
     
       let newData = {
           email,
-          pass_word,
+          pass_word: bcrypt.hashSync(pass_word, 10),
           full_name,
           age,
           avatar : file.filename
@@ -50,14 +52,9 @@ export class UsersService {
         where: {
           user_id: userId
         },
-        data: {
-          email, 
-          pass_word, 
-          full_name,
-          age,
-          avatar : file.filename
-        }
+        data: newData
       });
+      return "Update user successfully"
       
     } catch (err) {
       throw new HttpException(err.response, err.status);
