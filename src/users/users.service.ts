@@ -24,11 +24,11 @@ export class UsersService {
         return {...checkUser,token};
        }
        else{
-        throw new HttpException({mess:"user_id not found!"}, 400); 
+        throw new HttpException("user_id not found!", 400); 
        }
     }
     catch(err){
-      throw new HttpException(err.response.mess, err.status);
+      throw new HttpException(err.response, err.status);
     }     
   }
 
@@ -60,7 +60,7 @@ export class UsersService {
       });
       
     } catch (err) {
-      throw new HttpException(err.response.mess, err.status);
+      throw new HttpException(err.response, err.status);
     }
   }
 }

@@ -16,13 +16,12 @@ export class CommentsService {
       });
 
       if (comment.length > 0) {
-        console.log("comment");
         return comment;
       } else {
-        throw new HttpException({mess:"image_id not found!"}, 400);
+        throw new HttpException("This image has no comment!", 404);
       }
     } catch (err) {
-      throw new HttpException(err.response.mess, err.status);
+      throw new HttpException(err.response, err.status);
     }
   }
 
@@ -41,7 +40,7 @@ export class CommentsService {
       return "Save successfully!"; 
     }
     catch(err){
-      throw new HttpException(err.response.mess, err.status);
+      throw new HttpException(err.response, err.status);
     }
    
   }

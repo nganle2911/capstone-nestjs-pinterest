@@ -25,7 +25,7 @@ export class SaveImgService {
         }
       }
       catch(err){
-        throw new HttpException(err.response.mess, err.status); 
+        throw new HttpException(err.response, err.status); 
       }
       
   }
@@ -52,11 +52,11 @@ export class SaveImgService {
         }
 
       } else {
-        throw new HttpException({mess:"user not found"}, 404); 
+        throw new HttpException("user not found", 404); 
       }
     }
     catch(err){
-      throw new HttpException(err.response.mess, err.status); 
+      throw new HttpException(err.response, err.status); 
     }
     }
     
