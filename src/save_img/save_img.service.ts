@@ -3,6 +3,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { CreateSaveImgDto } from './dto/create-save_img.dto';
 import { UpdateSaveImgDto } from './dto/update-save_img.dto';
 import { PrismaClient } from '@prisma/client';
+import { check } from 'prettier';
 
 @Injectable()
 export class SaveImgService {
@@ -12,26 +13,30 @@ export class SaveImgService {
 
   async checkImage(image_id:number){
       try{
-        let checkImg = await this.prisma.save_img.findFirst({
+        let checkImg = await this.prisma.images.findFirst({
           where:{
             image_id
           }
         })
-        console.log(checkImg)
+        // console.log(checkImg)
         if(checkImg){
-          return "Saved"
-        }
-        else if(checkImg===null){
-          return "This image does not exist"
-        }
-        else{
-          return "Save"
+          let checkSave = await this.prisma.save_img.findFirst({
+            where: {
+              image_id
+            }
+          })
+          if (checkSave) {
+            return "Saved!"; 
+          } else {
+            return "Save"; 
+          }
+        } else {
+          return "This image does not exist!"; 
         }
       }
       catch(err){
         throw new HttpException(err.response, err.status); 
       }
-      
   }
 
   async getSavedImageList(token) {
