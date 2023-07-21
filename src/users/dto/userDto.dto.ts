@@ -1,6 +1,6 @@
 export class updateUserDto {
-    email?: string;
-    pass_word?: string;
-    full_name?: string;
-    age?: number; 
+    email?: string | null;
+    pass_word?: string | null;
+    full_name?: string | null;
+    age?: number | null; 
 }
