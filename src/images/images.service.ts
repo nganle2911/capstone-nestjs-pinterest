@@ -10,6 +10,7 @@ import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { PrismaClient } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
+import { check } from 'prettier';
 @Injectable()
 export class ImagesService {
   prisma = new PrismaClient();
@@ -88,24 +89,39 @@ export class ImagesService {
   async removeCreatedImage(image_id: number, token) {
     try {
       let decodedToken = await this.jwtService.decode(token);
-      let userId = decodedToken['user_id'];
+    let userId = decodedToken['user_id'];
 
-      let imageId = await this.prisma.images.deleteMany({
-        where: {
-          image_id,
-          user_id: userId,
-        },
-      });
-
-      console.log(imageId.count);
-      if (imageId.count !== 0) {
-        return 'Image deleted successfully!';
-      } else {
-        throw new HttpException('image not found', 404);
+    let checkComment = await this.prisma.comments.deleteMany({
+      where: {
+        image_id
       }
+    });
+    console.log("checkComment", checkComment);
+
+    let checkSavedImage = await this.prisma.save_img.deleteMany({
+      where: {
+        image_id,
+        user_id: userId
+      }
+    })
+    console.log("checkSavedImage", checkSavedImage);
+
+    let imageId = await this.prisma.images.deleteMany({
+      where: {
+        image_id,
+        user_id: userId
+      }
+    })
+    console.log("imageId", imageId);
+
+    if (imageId.count !== 0) {
+      return "Delete image successfully!"; 
+    } else {
+      throw new HttpException("image not found", 404); 
+    }
     } catch (err) {
       throw new HttpException(err.response, err.status);
-    }
+    } 
   }
 
   async uploadImage(file: Express.Multer.File, description, token) {
@@ -122,8 +138,7 @@ export class ImagesService {
         }
       })
 
-      return "Create image successfully"
-      
+      return "Create image successfully"  
   }
     catch(err){
       throw new HttpException(err.response, err.status); 
