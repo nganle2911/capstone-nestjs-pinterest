@@ -45,7 +45,7 @@ export class UsersService {
           email,
           pass_word: bcrypt.hashSync(pass_word, 10),
           full_name,
-          age,
+          age: +age,
           avatar : file.filename
       }
 
