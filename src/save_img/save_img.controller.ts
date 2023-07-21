@@ -16,8 +16,8 @@ export class SaveImgController {
   }
 
   // Get saved image list by user_id 
-  @Get("get-image-list")
-  getImageList(@Headers("token") token) {
-    return this.saveImgService.getImageList(token); 
+  @Get("get-saved-image-list")
+  getSavedImageList(@Headers("token") token) {
+    return this.saveImgService.getSavedImageList(token); 
   }
 }

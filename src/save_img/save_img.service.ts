@@ -17,8 +17,12 @@ export class SaveImgService {
             image_id
           }
         })
+        console.log(checkImg)
         if(checkImg){
           return "Saved"
+        }
+        else if(checkImg===null){
+          return "This image does not exist"
         }
         else{
           return "Save"
@@ -30,7 +34,7 @@ export class SaveImgService {
       
   }
 
-  async getImageList(token) {
+  async getSavedImageList(token) {
     try{
       let decodedToken = await this.jwtService.decode(token);
       let userId = decodedToken["user_id"]; 
