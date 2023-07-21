@@ -97,6 +97,7 @@ export class ImagesService {
         },
       });
 
+      console.log(imageId.count);
       if (imageId.count !== 0) {
         return 'Image deleted successfully!';
       } else {
