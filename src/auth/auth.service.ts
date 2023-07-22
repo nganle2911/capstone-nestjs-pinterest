@@ -11,14 +11,15 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
+
   prisma = new PrismaClient();
 
-  // sign-up
+  // Sign up 
   async signUp(userSignUp) {
     try {
-      let { email, pass_word, full_name, age } = userSignUp;
+      let { email, pass_word, full_name, age } = userSignUp; 
 
-      // check email if exists
+      // Check email if exists
       let checkEmail = await this.prisma.users.findFirst({
         where: {
           email,
@@ -46,7 +47,7 @@ export class AuthService {
     }
   }
 
-  // login
+  // Login
   async login(userLogin) {
     try {
       let { email, pass_word } = userLogin;
@@ -62,11 +63,12 @@ export class AuthService {
       if (checkUser) {
         if (bcrypt.compareSync(pass_word, checkUser.pass_word)) {
           checkUser = { ...checkUser, pass_word: '' };
+
           // successfully login => return token
           let token = this.jwtService.signAsync(
             { user_id: Number(checkUser.user_id) },
             { secret: this.configService.get('KEY'), expiresIn: '60m' },
-          );
+          ); 
           return token;
         } else {
           // pass_word is incorrect

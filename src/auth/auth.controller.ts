@@ -7,14 +7,16 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post("/login")
-  login(@Body() body){
-    return this.authService.login(body);
-  }
-
+  // Sign up 
   @HttpCode(201)
   @Post("/sign-up")
   signUp(@Body() body){
     return this.authService.signUp(body);
   } 
+  
+  // Login 
+  @Post("/login")
+  login(@Body() body){
+    return this.authService.login(body);
+  }
 }
