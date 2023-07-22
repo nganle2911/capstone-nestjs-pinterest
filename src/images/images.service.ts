@@ -17,10 +17,12 @@ export class ImagesService {
 
   constructor(private jwtService: JwtService) {}
 
-  async getImageList() {
+  // Get images list
+  async getImageList() {  
     return await this.prisma.images.findMany();
   }
 
+  // Get image by image_name
   async getImageByName(imgName: string) {
     try {
       // Find image by name
@@ -30,6 +32,7 @@ export class ImagesService {
         },
       });
 
+      // Check image if exists 
       if (imageByName) {
         return imageByName;
       } else {
@@ -40,6 +43,7 @@ export class ImagesService {
     }
   }
 
+  // Get image's info and its creator by image_id
   async getInfoByImageId(imgId: number) {
     try {
       let info = await this.prisma.images.findFirst({
@@ -50,6 +54,7 @@ export class ImagesService {
           image_id: imgId,
         },
       });
+
       if (info) {
         const {users: { pass_word, ...userInfo },...imageInfo} = info;
         const updatedInfo = { ...imageInfo, users: userInfo };
@@ -57,8 +62,8 @@ export class ImagesService {
       } else {
         throw new HttpException('image_id not found!', 400);
       }
-    } catch (err) {
 
+    } catch (err) {
       throw new HttpException(err.response, err.status);
     }
   }
@@ -124,6 +129,7 @@ export class ImagesService {
     } 
   }
 
+  // Upload new image
   async uploadImage(file: Express.Multer.File, description, token) {
     try {
       let decodedToken = await this.jwtService.decode(token);

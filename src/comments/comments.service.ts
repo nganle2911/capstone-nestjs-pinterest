@@ -7,6 +7,7 @@ import { PrismaClient } from '@prisma/client';
 export class CommentsService {
   prisma = new PrismaClient(); 
   
+  // Get comments by image_id 
   async getCommentsByImgId(image_id: number) {
     try {
       let comment = await this.prisma.comments.findMany({
@@ -25,6 +26,7 @@ export class CommentsService {
     }
   }
 
+  // Save user's comments on image
   async saveComment(userComment) {
     try{
       let { user_id, image_id, content} = userComment; 
