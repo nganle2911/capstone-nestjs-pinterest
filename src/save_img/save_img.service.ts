@@ -12,41 +12,41 @@ export class SaveImgService {
   constructor(private jwtService: JwtService) {}
 
   // Check whether the image is saved or not 
-  async checkImage(image_id:number){
-      try{
-        let checkImg = await this.prisma.images.findFirst({
-          where:{
+  async checkImage(image_id: number) {
+    try {
+      let checkImg = await this.prisma.images.findFirst({
+        where: {
+          image_id
+        }
+      })
+
+      // Check image if exists in table images. 
+      // If yes => check image if exists in table save_img 
+      if (checkImg) {
+        let checkSave = await this.prisma.save_img.findFirst({
+          where: {
             image_id
           }
         })
-        
-        // Check image if exists in table images. 
-        // If yes => check image if exists in table save_img 
-        if(checkImg){
-          let checkSave = await this.prisma.save_img.findFirst({
-            where: {
-              image_id
-            }
-          })
-          
-          if (checkSave) {
-            return "Saved!"; 
-          } else {
-            return "Save"; 
-          }
+
+        if (checkSave) {
+          return "Saved!";
         } else {
-          return "This image does not exist!"; 
+          return "Save";
         }
+      } else {
+        return "This image does not exist!";
       }
-      catch(err){
-        throw new HttpException(err.response, err.status); 
-      }
+    }
+    catch (err) {
+      throw new HttpException(err.response, err.status);
+    }
   }
 
   async getSavedImageList(token) {
-    try{
+    try {
       let decodedToken = await this.jwtService.decode(token);
-      let userId = decodedToken["user_id"]; 
+      let userId = decodedToken["user_id"];
 
       let checkUser = await this.prisma.save_img.findMany({
         where: {
@@ -55,22 +55,22 @@ export class SaveImgService {
         include: {
           images: true
         }
-      }); 
-  
+      });
+
       if (checkUser) {
         if (checkUser.length === 0) {
-          return "This user hasn't saved any images yet!"; 
+          return "This user hasn't saved any images yet!";
         } else {
           return checkUser;
         }
 
       } else {
-        throw new HttpException("user not found", 404); 
+        throw new HttpException("user not found", 404);
       }
     }
-    catch(err){
-      throw new HttpException(err.response, err.status); 
+    catch (err) {
+      throw new HttpException(err.response, err.status);
     }
-    }
+  }
     
 }
