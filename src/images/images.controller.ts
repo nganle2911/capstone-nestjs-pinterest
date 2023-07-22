@@ -10,14 +10,14 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService,
-    ) {}
+  ) { }
 
   // Get images list 
   @Get('get-image-list')
-  getImageList(){
+  getImageList() {
     return this.imagesService.getImageList();
   }
-  
+
   // Get image by image_name  
   @Get("get-image-by-name/:image_name")
   getImageByName(@Param("image_name") image_name: string) {
@@ -26,34 +26,33 @@ export class ImagesController {
 
   // Get image's info and its creator by image_id 
   @Get("get-info-by-img-id/:image_id")
-  getInfoByImageId(@Param("image_id") image_id:number){
+  getInfoByImageId(@Param("image_id") image_id: number) {
     return this.imagesService.getInfoByImageId(Number(image_id));
   }
 
   // Get created image list
   @Get("get-created-image-list")
-  getCreatedImageList(@Headers("token") token){
+  getCreatedImageList(@Headers("token") token) {
     return this.imagesService.getCreatedImageList(token)
   }
 
   // Delete created image by image_id 
   @Delete("remove-image/:image_id")
   removeCreatedImage(@Param("image_id") image_id: number, @Headers("token") token) {
-    return this.imagesService.removeCreatedImage(+image_id, token); 
+    return this.imagesService.removeCreatedImage(+image_id, token);
   }
 
   // Upload new image 
-  @UseInterceptors(FileInterceptor("file",{
-    storage:diskStorage({
-      destination:  process.cwd()+"/public/img",
-      filename:(req,file,callback)=>{
+  @UseInterceptors(FileInterceptor("file", {
+    storage: diskStorage({
+      destination: process.cwd() + "/public/img",
+      filename: (req, file, callback) => {
         callback(null, new Date().getTime() + file.originalname)
       }
     })
   }))
   @Post("upload-image")
-  uploadImage(@UploadedFile() file: Express.Multer.File, @Body("description") description, @Headers("token") token){
-    return this.imagesService.uploadImage(file,description,token)
-  } 
-
+  uploadImage(@UploadedFile() file: Express.Multer.File, @Body("description") description, @Headers("token") token) {
+    return this.imagesService.uploadImage(file, description, token)
+  }
 }

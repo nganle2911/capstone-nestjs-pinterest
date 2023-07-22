@@ -11,6 +11,7 @@ export class SaveImgService {
 
   constructor(private jwtService: JwtService) {}
 
+  // Check whether the image is saved or not 
   async checkImage(image_id:number){
       try{
         let checkImg = await this.prisma.images.findFirst({
@@ -18,13 +19,16 @@ export class SaveImgService {
             image_id
           }
         })
-        // console.log(checkImg)
+        
+        // Check image if exists in table images. 
+        // If yes => check image if exists in table save_img 
         if(checkImg){
           let checkSave = await this.prisma.save_img.findFirst({
             where: {
               image_id
             }
           })
+          
           if (checkSave) {
             return "Saved!"; 
           } else {
