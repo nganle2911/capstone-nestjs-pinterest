@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Headers } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -17,7 +17,7 @@ export class CommentsController {
   
   // Save user's comments on image 
   @Post("save-comment")
-  saveComment(@Body() body) {
-    return this.commentsService.saveComment(body); 
+  saveComment(@Body() body, @Headers("token") token) {
+    return this.commentsService.saveComment(body,token); 
   }
 }
