@@ -37,53 +37,20 @@ export class UsersService {
   }
 
   async updateUser(token, updateUser, file: Express.Multer.File) {
-    // Patch method 
-    /* try {
-      let decodedToken = await this.jwtService.decode(token)
-      let userId = decodedToken['user_id'];
-      console.log("userId", userId)
-
-      let {email, pass_word, full_name, age} = updateUser;
-      console.log("updateUser", updateUser); 
-
-      let newData = {
-        email,
-        pass_word: bcrypt.hashSync(pass_word, 10),
-        full_name,
-        age: +age,
-        avatar : file.filename
-      }
-
-      console.log("newData", newData);
-      await this.prisma.users.update({
-        where: {
-          user_id: userId
-        },
-        data: {
-          ...newData
-        }
-      });
-      return "Update user successfully";
-
-    } catch (err) {
-      throw new HttpException(err.response, err.status);
-    } */
-
-    // Put method 
     try {
       let decodedToken = await this.jwtService.decode(token)
       let userId = decodedToken['user_id'];
 
-      let {email, pass_word, full_name, age} = updateUser; 
+      let {full_name, pass_word, email, age} = updateUser; 
+
       console.log("update user", updateUser); 
     
       let newData = {
-          email,
+          full_name, email, age,
           pass_word: bcrypt.hashSync(pass_word, 10),
-          full_name,
-          age: +age,
           avatar : file.filename
       }
+
 
       console.log("new data", newData);
 
