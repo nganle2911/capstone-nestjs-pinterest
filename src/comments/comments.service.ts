@@ -29,7 +29,7 @@ export class CommentsService {
         if (comment.length > 0) {
           return comment;
         } else {
-          throw new HttpException('This image has no comment', 404);
+          return "This image has no comment!";
         }
       }
       else{
