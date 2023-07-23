@@ -13,17 +13,29 @@ export class CommentsService {
   // Get comments by image_id
   async getCommentsByImgId(image_id: number) {
     try {
-      let comment = await this.prisma.comments.findMany({
-        where: {
-          image_id,
-        },
-      });
 
-      if (comment.length > 0) {
-        return comment;
-      } else {
-        throw new HttpException('This image has no comment!', 404);
+      let checkImage = await this.prisma.images.findFirst({
+        where:{
+          image_id
+        }
+      })
+
+      if(checkImage){
+        let comment = await this.prisma.comments.findMany({
+          where: {
+            image_id,
+          },
+        });
+        if (comment.length > 0) {
+          return comment;
+        } else {
+          throw new HttpException('This image has no comment', 404);
+        }
       }
+      else{
+        throw new HttpException('Image not found', 404);
+      }
+
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
