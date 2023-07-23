@@ -11,8 +11,8 @@ export class SaveImgController {
 
   // Check whether the image is saved or not
   @Get("check-image/:image_id")
-  checkImage(@Param("image_id") image_id:number){
-    return this.saveImgService.checkImage(Number(image_id));
+  checkImage(@Param("image_id") image_id:number, @Headers("token") token){
+    return this.saveImgService.checkImage(Number(image_id),token);
   }
 
   // Get saved image list by user_id 

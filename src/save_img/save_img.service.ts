@@ -12,8 +12,12 @@ export class SaveImgService {
   constructor(private jwtService: JwtService) {}
 
   // Check whether the image is saved or not 
-  async checkImage(image_id: number) {
+  async checkImage(image_id: number,token) {
     try {
+
+      let decodedToken = await this.jwtService.decode(token);
+      let userId = decodedToken['user_id'];
+
       let checkImg = await this.prisma.images.findFirst({
         where: {
           image_id
@@ -25,7 +29,8 @@ export class SaveImgService {
       if (checkImg) {
         let checkSave = await this.prisma.save_img.findFirst({
           where: {
-            image_id
+            image_id,
+            user_id:userId
           }
         })
 
