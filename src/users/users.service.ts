@@ -47,21 +47,17 @@ export class UsersService {
       console.log("update user", updateUser); 
     
       let newData = {
-          full_name, email, age,
-          pass_word: bcrypt.hashSync(pass_word, 10),
-          avatar : file.filename
+        full_name, email, age,
+        pass_word: bcrypt.hashSync(pass_word, 10),
+        avatar: file.filename
       }
-
-
       console.log("new data", newData);
 
       await this.prisma.users.update({
         where: {
           user_id: userId
         },
-        data: {
-          ...newData
-        }
+        data: newData
       });
       return "Update user successfully";
       
