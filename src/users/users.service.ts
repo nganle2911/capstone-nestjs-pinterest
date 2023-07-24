@@ -36,6 +36,7 @@ export class UsersService {
     }     
   }
 
+  // Update user's profile 
   async updateUser(token, updateUser, file: Express.Multer.File) {
     try {
       let decodedToken = await this.jwtService.decode(token)

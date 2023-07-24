@@ -36,7 +36,7 @@ export class UsersController {
     // @Body("full_name") full_name, 
     // @Body("age") age,
     @Body() updateUser: updateUserDto,
-    @UploadedFile() file: Express.Multer.File | null 
+    @UploadedFile() file: Express.Multer.File
   ) {
     return this.usersService.updateUser(token, updateUser, file); 
   }
