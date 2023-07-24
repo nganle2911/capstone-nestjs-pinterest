@@ -57,7 +57,9 @@ export class UsersService {
         where: {
           user_id: userId
         },
-        data: newData
+        data: {
+          ...newData
+        }
       });
       return "Update user successfully";
       
