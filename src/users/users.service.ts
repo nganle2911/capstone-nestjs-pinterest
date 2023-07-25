@@ -1,5 +1,5 @@
 import { SaveImg } from './../save_img/entities/save_img.entity';
-import {  Injectable,HttpException } from '@nestjs/common';
+import {  Injectable,HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaClient } from '@prisma/client';
@@ -36,34 +36,34 @@ export class UsersService {
     }     
   }
 
-  async updateUser(token, updateUser, file: Express.Multer.File) {
+  async updateUser(token: string, updateUser: updateUserDto, file: Express.Multer.File) {
     try {
-      let decodedToken = await this.jwtService.decode(token)
-      let userId = decodedToken['user_id'];
+      const decodedToken = await this.jwtService.decode(token);
+      const userId = decodedToken['user_id'];
 
-      let {full_name, pass_word, email, age} = updateUser; 
-
-      console.log("update user", updateUser); 
-    
-      let newData = {
-          full_name, email, age,
-          pass_word: bcrypt.hashSync(pass_word, 10),
-          avatar : file.filename
-      }
+      const { full_name, pass_word, email, age } = updateUser;
 
 
-      console.log("new data", newData);
+
+      const newData = {
+        full_name,
+        email,
+        age:Number(age),
+        pass_word: bcrypt.hashSync(pass_word, 10),
+        avatar: file.filename,
+      };
+      
 
       await this.prisma.users.update({
         where: {
-          user_id: userId
+          user_id: userId,
         },
         data: {
-          ...newData
-        }
+          ...newData,
+        },
       });
+
       return "Update user successfully";
-      
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
