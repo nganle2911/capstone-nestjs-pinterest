@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaClient } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { updateUserDto } from './dto/userDto.dto';
+
 @Injectable()
 export class UsersService {
   prisma = new PrismaClient();
@@ -36,13 +36,15 @@ export class UsersService {
     }     
   }
 
-  async updateUser(token: string, updateUser: updateUserDto, file: Express.Multer.File) {
+// Update user's profile
+  async updateUser(token: string, updateUser, file: Express.Multer.File) {
+   
+  
     try {
       const decodedToken = await this.jwtService.decode(token);
       const userId = decodedToken['user_id'];
 
       const { full_name, pass_word, email, age } = updateUser;
-
 
 
       const newData = {
