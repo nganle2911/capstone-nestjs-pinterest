@@ -55,7 +55,6 @@ export class UsersService {
         avatar: file.filename,
       };
       
-
       await this.prisma.users.update({
         where: {
           user_id: userId,
