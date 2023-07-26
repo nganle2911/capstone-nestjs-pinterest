@@ -48,6 +48,7 @@ export class SaveImgService {
     }
   }
 
+  // Get saved images list by user_id
   async getSavedImageList(token) {
     try {
       let decodedToken = await this.jwtService.decode(token);

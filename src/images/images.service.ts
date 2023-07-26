@@ -68,6 +68,7 @@ export class ImagesService {
     }
   }
 
+  // Get created images list by user_id
   async getCreatedImageList(token) {
     try {
       let decodedToken = await this.jwtService.decode(token);
@@ -91,6 +92,7 @@ export class ImagesService {
     }
   }
 
+  // Delete created image by image_id
   async removeCreatedImage(image_id: number, token) {
     try {
       let decodedToken = await this.jwtService.decode(token);
@@ -101,23 +103,20 @@ export class ImagesService {
         image_id
       }
     });
-    console.log("checkComment", checkComment);
 
     let checkSavedImage = await this.prisma.save_img.deleteMany({
       where: {
         image_id,
         user_id: userId
       }
-    })
-    console.log("checkSavedImage", checkSavedImage);
+    });
 
     let imageId = await this.prisma.images.deleteMany({
       where: {
         image_id,
         user_id: userId
       }
-    })
-    console.log("imageId", imageId);
+    });
 
     if (imageId.count !== 0) {
       return "Delete image successfully!"; 

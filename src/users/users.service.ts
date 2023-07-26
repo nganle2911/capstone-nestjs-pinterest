@@ -11,6 +11,7 @@ export class UsersService {
 
   constructor(private jwtService:JwtService) {}
 
+  // Get user's info
   async getUser(token){
     
     try{
