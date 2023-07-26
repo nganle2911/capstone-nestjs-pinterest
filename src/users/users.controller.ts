@@ -20,6 +20,7 @@ export class UsersController {
   }
 
   // Update user's profile 
+  @Put("update-user")
   @UseInterceptors(FileInterceptor("file", {
     storage: diskStorage({
       destination: process.cwd() + "/public/img", 
@@ -28,7 +29,6 @@ export class UsersController {
       }
     })
   }))
-  @Put("update-user")
   updateUser(
     @Headers("token") token, 
     // @Body("email") email, 
