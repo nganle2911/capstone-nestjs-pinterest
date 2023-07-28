@@ -13,7 +13,7 @@ export class UsersController {
   prisma = new PrismaClient();
   constructor(private readonly usersService: UsersService) {}
 
-  // @UseGuards(AuthGuard("jwt"))
+  // Get user's info
   @Get("get-user")
   getUser(@Headers("token") token){
     return this.usersService.getUser(token)

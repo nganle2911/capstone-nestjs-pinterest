@@ -30,7 +30,7 @@ export class ImagesController {
     return this.imagesService.getInfoByImageId(Number(image_id));
   }
 
-  // Get created image list
+  // Get created images list by user_id
   @Get("get-created-image-list")
   getCreatedImageList(@Headers("token") token) {
     return this.imagesService.getCreatedImageList(token)
