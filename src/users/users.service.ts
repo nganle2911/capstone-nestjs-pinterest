@@ -21,6 +21,7 @@ export class UsersService {
           user_id: id
         }
        })
+       
        if(checkUser){
         const {pass_word, ...restInfo} = checkUser
         const userInfo = restInfo
