@@ -26,7 +26,7 @@ export class ImagesService {
   async getImageByName(imgName: string) {
     try {
       // Find image by name
-      let imageByName = await this.prisma.images.findFirst({
+      let imageByName = await this.prisma.images.findMany({
         where: {
           image_name: imgName,
         },
