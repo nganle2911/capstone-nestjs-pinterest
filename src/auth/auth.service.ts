@@ -22,27 +22,32 @@ export class AuthService {
       // Check email if exists
       let checkEmail = await this.prisma.users.findFirst({
         where: {
-          email,
+          email
         },
-      });
+      })
 
+      // if email is already existed
       if (checkEmail) {
         throw new HttpException('Email is already existed', 400);
       } else {
         let newUser = {
           email,
-          pass_word: bcrypt.hashSync(pass_word, 10),
+          pass_word: bcrypt.hashSync(pass_word,10), //encode the password
           full_name,
           age,
         };
 
+        // create new user
         await this.prisma.users.create({
           data: newUser,
         });
 
         return 'Create user successfully';
       }
-    } catch (err) {
+
+    }
+    
+     catch (err) {
       throw new HttpException(err.response, err.status);
     }
   }

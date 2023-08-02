@@ -28,12 +28,14 @@ export class ImagesService {
       // Find image by name
       let imageByName = await this.prisma.images.findMany({
         where: {
-          image_name: imgName,
+          image_name: {
+            contains: imgName
+          },
         },
+        
       });
-
       // Check image if exists 
-      if (imageByName) {
+      if (imageByName.length>0) {
         return imageByName;
       } else {
         throw new HttpException('image_name not found!', 404);
