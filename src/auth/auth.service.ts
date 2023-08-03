@@ -28,7 +28,7 @@ export class AuthService {
 
       // if email is already existed
       if (checkEmail) {
-        throw new HttpException('Email is already existed', 400);
+        throw new HttpException('Email is already existed', 409);
       } else {
         let newUser = {
           email,
@@ -77,7 +77,7 @@ export class AuthService {
           return token;
         } else {
           // pass_word is incorrect
-          throw new HttpException('Password is incorrect!', 400);
+          throw new HttpException('Password is incorrect!', 401);
         }
       } else {
         throw new HttpException(

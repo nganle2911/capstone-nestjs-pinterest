@@ -19,7 +19,20 @@ export class ImagesService {
 
   // Get images list
   async getImageList() {  
-    return await this.prisma.images.findMany();
+    try{
+      let image = await this.prisma.images.findMany();
+      if(image.length>0){
+        return image
+      }
+      else{
+        throw new HttpException("The image list is empty", 404)
+      }
+    }
+    catch(err){
+      throw new HttpException(err.response, err.status)
+    }
+    
+    
   }
 
   // Get image by image_name
