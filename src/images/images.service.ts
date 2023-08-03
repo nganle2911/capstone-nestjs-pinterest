@@ -38,11 +38,12 @@ export class ImagesService {
   // Get image by image_name
   async getImageByName(imgName: string) {
     try {
+
       // Find image by name
       let imageByName = await this.prisma.images.findMany({
         where: {
           image_name: {
-            contains: imgName
+            contains: imgName['image_name']
           },
         },
         

@@ -19,8 +19,8 @@ export class ImagesController {
   }
 
   // Get image by image_name  
-  @Get("get-image-by-name/:image_name")
-  getImageByName(@Param("image_name") image_name: string) {
+  @Get("get-image-by-name")
+  getImageByName(@Body() image_name: string) {
     return this.imagesService.getImageByName(image_name);
   }
 
