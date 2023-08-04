@@ -112,36 +112,36 @@ export class ImagesService {
   async removeCreatedImage(image_id: number, token) {
     try {
       let decodedToken = await this.jwtService.decode(token);
-    let userId = decodedToken['user_id'];
+      let userId = decodedToken['user_id'];
 
-    let checkComment = await this.prisma.comments.deleteMany({
-      where: {
-        image_id
+      let checkComment = await this.prisma.comments.deleteMany({
+        where: {
+          image_id
+        }
+      });
+
+      let checkSavedImage = await this.prisma.save_img.deleteMany({
+        where: {
+          image_id,
+          user_id: userId
+        }
+      });
+
+      let imageId = await this.prisma.images.deleteMany({
+        where: {
+          image_id,
+          user_id: userId
+        }
+      });
+
+      if (imageId.count !== 0) {
+        return "Delete image successfully!";
+      } else {
+        throw new HttpException("image not found", 404);
       }
-    });
-
-    let checkSavedImage = await this.prisma.save_img.deleteMany({
-      where: {
-        image_id,
-        user_id: userId
-      }
-    });
-
-    let imageId = await this.prisma.images.deleteMany({
-      where: {
-        image_id,
-        user_id: userId
-      }
-    });
-
-    if (imageId.count !== 0) {
-      return "Delete image successfully!"; 
-    } else {
-      throw new HttpException("image not found", 404); 
-    }
     } catch (err) {
       throw new HttpException(err.response, err.status);
-    } 
+    }
   }
 
   // Upload new image
