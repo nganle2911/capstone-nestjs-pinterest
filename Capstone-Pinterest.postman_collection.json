@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"ronaldo@gmail.com\",\n    \"pass_word\": \"1234\",\n    \"full_name\": \"Ronaldo\",\n    \"age\": 38\n}",
+					"raw": "{\n    \"email\": \"mbappe@gmail.com\",\n    \"pass_word\": \"1234\",\n    \"full_name\": \"Mbappé\",\n    \"age\": 24\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -40,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"ronaldo@gmail.com\",\n    \"pass_word\": \"1234\"\n}",
+					"raw": "{\n    \"email\": \"mbappe123@gmail.com\",\n    \"pass_word\": \"1234\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -86,24 +86,35 @@
 		},
 		{
 			"name": "Homepage - Find image by image_name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNjUwODEsImV4cCI6MTY5MTE2ODY4MX0.JbqgZvjsR-aPE5RzoELNSQetc3mvVGvb2VBkieGVK8g",
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"image_name\": \"dev\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{domain}}/images/get-image-by-name/1690043062261dev.jpeg",
+					"raw": "{{domain}}/images/get-image-by-name",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
 						"images",
-						"get-image-by-name",
-						"1690043062261dev.jpeg"
+						"get-image-by-name"
 					]
 				}
 			},
@@ -116,7 +127,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNjYyMDMsImV4cCI6MTY5MTE2OTgwM30.jjU4ltHqI-ahf31H_s_Vkdvk9gtNf5OvGURpIu1Hijg",
 						"type": "text"
 					}
 				],
@@ -196,18 +207,18 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNDU3ODQsImV4cCI6MTY5MTE0OTM4NH0.70RuDSkkIxORPs3LRnjSZOle-K_xbNEBrUgfEUBtim0",
 						"type": "text"
 					},
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNDU3ODQsImV4cCI6MTY5MTE0OTM4NH0.70RuDSkkIxORPs3LRnjSZOle-K_xbNEBrUgfEUBtim0",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"image_id\": 3,\n    \"content\": \"hello\"\n}",
+					"raw": "{\n    \"image_id\": 7,\n    \"content\": \"deliciousss !!!!\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -233,13 +244,13 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNTQwMDcsImV4cCI6MTY5MTE1NzYwN30.xJ2Q-p6Z1yH_z1yzJhNYeh_uMbgyuViKs9RvfTuNpn4",
 						"type": "text"
 					},
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNTQwMDcsImV4cCI6MTY5MTE1NzYwN30.xJ2Q-p6Z1yH_z1yzJhNYeh_uMbgyuViKs9RvfTuNpn4",
 						"type": "text"
 					}
 				],
@@ -262,13 +273,13 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNTc1NzYsImV4cCI6MTY5MTE2MTE3Nn0.69mBZv5r0bZF1fI3G0RXvp9CXcUnhtkSHXOhfzk0bIY",
 						"type": "text"
 					},
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNTc1NzYsImV4cCI6MTY5MTE2MTE3Nn0.69mBZv5r0bZF1fI3G0RXvp9CXcUnhtkSHXOhfzk0bIY",
 						"type": "text"
 					}
 				],
@@ -291,13 +302,13 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNTkzODcsImV4cCI6MTY5MTE2Mjk4N30.kT7YNnbHkdkEUIHgf1YxzsA1TGlf88JWaAdHdLV1h44",
 						"type": "text"
 					},
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNTkzODcsImV4cCI6MTY5MTE2Mjk4N30.kT7YNnbHkdkEUIHgf1YxzsA1TGlf88JWaAdHdLV1h44",
 						"type": "text"
 					}
 				],
@@ -320,13 +331,13 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNjM1MzMsImV4cCI6MTY5MTE2NzEzM30.MneZIxKn9kx_cJm_qvy4y--mAfFXyXSZWCX70feze90",
 						"type": "text"
 					},
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNjM1MzMsImV4cCI6MTY5MTE2NzEzM30.MneZIxKn9kx_cJm_qvy4y--mAfFXyXSZWCX70feze90",
 						"type": "text"
 					}
 				],
@@ -336,11 +347,11 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/nganle2911/Desktop/marshall.jpeg"
+							"src": "/Users/nganle2911/Desktop/paris.jpeg"
 						},
 						{
 							"key": "description",
-							"value": "best speaker ",
+							"value": "Paris",
 							"type": "text"
 						}
 					]
@@ -364,13 +375,13 @@
 				"method": "DELETE",
 				"header": [
 					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE2OTExNjIyNjUsImV4cCI6MTY5MTE2NTg2NX0.jOaQdKneJYyrK1ni9aaDRerXuC2UKXPG-1k_LmMuAkg",
 						"type": "text"
 					},
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE2OTExNjIyNjUsImV4cCI6MTY5MTE2NTg2NX0.jOaQdKneJYyrK1ni9aaDRerXuC2UKXPG-1k_LmMuAkg",
 						"type": "text"
 					}
 				],
@@ -379,14 +390,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{domain}}/images/remove-image/6",
+					"raw": "{{domain}}/images/remove-image/5",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
 						"images",
 						"remove-image",
-						"6"
+						"5"
 					]
 				}
 			},
@@ -398,13 +409,13 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNjQyMjcsImV4cCI6MTY5MTE2NzgyN30.JY8nxtLNj3PlO68C42gfZZqpos9MbjqzxbZ63lNVs0U",
 						"type": "text"
 					},
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJpYXQiOjE2OTAzOTY1ODMsImV4cCI6MTY5MDQwMDE4M30.fESVQ5VUXcJxgPTxJczKqAK1_7sVHpniAmSgH2PpUk0",
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2OTExNjQyMjcsImV4cCI6MTY5MTE2NzgyN30.JY8nxtLNj3PlO68C42gfZZqpos9MbjqzxbZ63lNVs0U",
 						"type": "text"
 					}
 				],
@@ -413,17 +424,17 @@
 					"formdata": [
 						{
 							"key": "full_name",
-							"value": "ronaldo messi",
-							"type": "text"
-						},
-						{
-							"key": "age",
-							"value": "40",
+							"value": "Mbappé",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "ronaldo-messi@gmail.com",
+							"value": "mbappe123@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "25",
 							"type": "text"
 						},
 						{
@@ -434,7 +445,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/nganle2911/Desktop/marshall.jpeg"
+							"src": "/Users/nganle2911/Desktop/paris.jpeg"
 						}
 					]
 				},
