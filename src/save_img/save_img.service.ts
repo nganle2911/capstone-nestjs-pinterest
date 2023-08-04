@@ -69,10 +69,7 @@ export class SaveImgService {
         } else {
           return checkUser;
         }
-
-      } else {
-        throw new HttpException("user not found", 404);
-      }
+      } 
     }
     catch (err) {
       throw new HttpException(err.response, err.status);
