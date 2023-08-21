@@ -9,6 +9,10 @@ async function bootstrap() {
 
   app.use(express.static(".")) 
 
-  await app.listen(8080);
+  // Start server 
+  const PORT = process.env.PORT || 8080; 
+  await app.listen(PORT, () => {
+    console.log("JSON Server is running"); 
+  });
 }
 bootstrap();
